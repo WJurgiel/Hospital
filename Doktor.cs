@@ -53,7 +53,7 @@ namespace Hospital
             }
             mySqlConnection.Close();
         }
-        void createPatientsPanel()
+        public void createPatientsPanel()
         {
             mySqlConnection.Open();
             string querry = $"SELECT p.ID, p.Imie, p.Nazwisko, p.Diagnoza, p.Data_Przyjecia, l.Nazwa FROM pacjenci as p JOIN recepty as r ON p.ID = r.ID_Pacjenta JOIN leki as l ON r.ID_leku = l.ID AND p.ID_Lekarza = {DoctorID}";
@@ -74,13 +74,24 @@ namespace Hospital
             PatientsGrid.DataSource = patientsTable;
             mySqlConnection.Close();
         }
-        void UpdateDiagnose(int patientID, string newDiagnose)
+        public void UpdateDiagnose(int patientID, string newDiagnose)
         {
             mySqlConnection.Open();
-            string querry = $"UPDATE pacjenci SET Diagnoza = {newDiagnose} WHERE ID = {patientID}";
-            MySqlCommand command = new(querry, mySqlConnection);
-            command.ExecuteNonQuery();
+            try
+            {
+                string querry = $"UPDATE pacjenci SET Diagnoza = @Diagnoza WHERE ID = @ID";
+                MySqlCommand command = new(querry, mySqlConnection);
+                command.Parameters.AddWithValue("@Diagnoza", newDiagnose);
+                command.Parameters.AddWithValue("@ID", patientID);
+                command.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Coś się zepsuło w procesie, patientID = {patientID}, newDiagnose: {newDiagnose}");
+                MessageBox.Show(ex.Message);
+            }
             mySqlConnection.Close();
+            
         }
 
         private void LogoutButton_Click(object sender, EventArgs e)
@@ -94,11 +105,16 @@ namespace Hospital
             PatientsPanel.Visible = true;
         }
 
-        private void InformationsPanel_Click(object sender, EventArgs e)
+        private void InformationsPanelButton_Click(object sender, EventArgs e)
         {
             PatientsPanel.Visible = false;
         }
-
+        public void OnDiagnoseUpdated(int patientId, string newDiagnose)
+        {
+            UpdateDiagnose(patientId, newDiagnose);
+            createPatientsPanel();
+            DiagnoseButton.Text = "działa:P";
+        }
         private void DiagnoseButton_Click(object sender, EventArgs e)
         {
             /*
@@ -108,28 +124,17 @@ namespace Hospital
             {
                 int selectedRowIndex = PatientsGrid.SelectedRows[0].Index;
                 int patientId = Convert.ToInt32(PatientsGrid.Rows[selectedRowIndex].Cells["ID"].Value);
-                string name = (PatientsGrid.Rows[selectedRowIndex].Cells["Imie"]).ToString();
-                string surname = (PatientsGrid.Rows[selectedRowIndex].Cells["Nazwisko"]).ToString();
+                
+                string name = (PatientsGrid.Rows[selectedRowIndex].Cells["Imie"]).Value.ToString();
+                string surname = PatientsGrid.Rows[selectedRowIndex].Cells["Nazwisko"].Value.ToString();
 
                 
-                DiagnosePatient diagnoseForm = new(name,surname);
+                DiagnosePatient diagnoseForm = new(this, patientId, name,surname);
 
                 if (diagnoseForm.ShowDialog() == DialogResult.OK)
                 {
-                    if(diagnoseForm.buttonClicked == true)
-                    {
-                        diagnoseForm.Diagnose();
-                        string newDiagnose = diagnoseForm.diagnose;
 
-                        UpdateDiagnose(patientId, newDiagnose);
-                        createPatientsPanel();
-
-                        diagnoseForm.ResetButtonClicked();
-
-                        createPatientsPanel();
-                    }
-                   
-
+                    
                  }
             }
             else

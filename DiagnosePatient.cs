@@ -12,13 +12,16 @@ namespace Hospital
 {
     public partial class DiagnosePatient : Form
     {
+        private int patientID;
         public string diagnose { get; set; }
-        public bool buttonClicked;
         private string name, surname;
-        public DiagnosePatient(string n,string s)
+        Doktor doctor = null;
+        public DiagnosePatient(Doktor doc, int id, string n,string s)
         {
             InitializeComponent();
-            buttonClicked = false;
+
+            doctor = doc;
+            patientID = id;
             name = n;
             surname = s;
             PatientNameLabel.Text = $"{name} {surname}";
@@ -26,17 +29,12 @@ namespace Hospital
 
         private void AddDiagnoseButton_Click(object sender, EventArgs e)
         {
-            Diagnose();
-            buttonClicked = true;
-            Console.WriteLine(buttonClicked);
-        }
-        public void ResetButtonClicked()
-        {
-            buttonClicked = false;
-        }
-        public void Diagnose()
-        {
             diagnose = DiagnoseTextBox.Text;
+
+            doctor.UpdateDiagnose(patientID, diagnose);
+            doctor.createPatientsPanel();
+            this.Close();
         }
+      
     }
 }
