@@ -35,13 +35,14 @@
             // 
             // PatientNameLabel
             // 
-            this.PatientNameLabel.AutoSize = true;
+            this.PatientNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PatientNameLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.PatientNameLabel.Location = new System.Drawing.Point(43, 9);
+            this.PatientNameLabel.Location = new System.Drawing.Point(0, 0);
             this.PatientNameLabel.Name = "PatientNameLabel";
-            this.PatientNameLabel.Size = new System.Drawing.Size(163, 32);
+            this.PatientNameLabel.Size = new System.Drawing.Size(243, 250);
             this.PatientNameLabel.TabIndex = 0;
             this.PatientNameLabel.Text = "Imie nazwisko";
+            this.PatientNameLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // DiagnoseTextBox
             // 
@@ -73,7 +74,6 @@
             this.Name = "DiagnosePatient";
             this.Text = "DiagnosePatient";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

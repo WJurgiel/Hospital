@@ -32,7 +32,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.LogoutButton = new System.Windows.Forms.Button();
             this.PatientsButton = new System.Windows.Forms.Button();
-            this.InformationsPanel = new System.Windows.Forms.Button();
+            this.InformationsPanelButton = new System.Windows.Forms.Button();
             this.PatientsPanel = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -72,7 +72,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.LogoutButton);
             this.splitContainer1.Panel1.Controls.Add(this.PatientsButton);
-            this.splitContainer1.Panel1.Controls.Add(this.InformationsPanel);
+            this.splitContainer1.Panel1.Controls.Add(this.InformationsPanelButton);
             // 
             // splitContainer1.Panel2
             // 
@@ -116,16 +116,16 @@
             this.PatientsButton.UseVisualStyleBackColor = true;
             this.PatientsButton.Click += new System.EventHandler(this.PatientsButton_Click);
             // 
-            // InformationsPanel
+            // InformationsPanelButton
             // 
-            this.InformationsPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InformationsPanel.Location = new System.Drawing.Point(12, 12);
-            this.InformationsPanel.Name = "InformationsPanel";
-            this.InformationsPanel.Size = new System.Drawing.Size(124, 45);
-            this.InformationsPanel.TabIndex = 0;
-            this.InformationsPanel.Text = "Informacje";
-            this.InformationsPanel.UseVisualStyleBackColor = true;
-            this.InformationsPanel.Click += new System.EventHandler(this.InformationsPanel_Click);
+            this.InformationsPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InformationsPanelButton.Location = new System.Drawing.Point(12, 12);
+            this.InformationsPanelButton.Name = "InformationsPanelButton";
+            this.InformationsPanelButton.Size = new System.Drawing.Size(124, 45);
+            this.InformationsPanelButton.TabIndex = 0;
+            this.InformationsPanelButton.Text = "Informacje";
+            this.InformationsPanelButton.UseVisualStyleBackColor = true;
+            this.InformationsPanelButton.Click += new System.EventHandler(this.InformationsPanelButton_Click);
             // 
             // PatientsPanel
             // 
@@ -360,7 +360,7 @@
 
         private SplitContainer splitContainer1;
         private Button PatientsButton;
-        private Button InformationsPanel;
+        private Button InformationsPanelButton;
         private Button LogoutButton;
         private Label label2;
         private Label label1;
