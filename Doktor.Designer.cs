@@ -34,8 +34,10 @@
             this.PatientsButton = new System.Windows.Forms.Button();
             this.InformationsPanelButton = new System.Windows.Forms.Button();
             this.OpinionsPanel = new System.Windows.Forms.Panel();
-            this.GradePictureBox = new System.Windows.Forms.PictureBox();
-            this.GradeLabel = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.OpinionsGrid = new System.Windows.Forms.DataGridView();
+            this.ScorePictureBox = new System.Windows.Forms.PictureBox();
+            this.AverageGradeLabel = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.PatientsPanel = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
@@ -56,18 +58,16 @@
             this.IdLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.OpinionsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.GradePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OpinionsGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScorePictureBox)).BeginInit();
             this.PatientsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PatientsGrid)).BeginInit();
             this.InformationPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -142,9 +142,9 @@
             // 
             this.OpinionsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.OpinionsPanel.Controls.Add(this.label10);
-            this.OpinionsPanel.Controls.Add(this.dataGridView1);
-            this.OpinionsPanel.Controls.Add(this.GradePictureBox);
-            this.OpinionsPanel.Controls.Add(this.GradeLabel);
+            this.OpinionsPanel.Controls.Add(this.OpinionsGrid);
+            this.OpinionsPanel.Controls.Add(this.ScorePictureBox);
+            this.OpinionsPanel.Controls.Add(this.AverageGradeLabel);
             this.OpinionsPanel.Controls.Add(this.label9);
             this.OpinionsPanel.Location = new System.Drawing.Point(3, 3);
             this.OpinionsPanel.Name = "OpinionsPanel";
@@ -152,27 +152,50 @@
             this.OpinionsPanel.TabIndex = 5;
             this.OpinionsPanel.Visible = false;
             // 
-            // GradePictureBox
+            // label10
             // 
-            this.GradePictureBox.Image = global::Hospital.Properties.Resources.EmojiNice;
-            this.GradePictureBox.Location = new System.Drawing.Point(424, 0);
-            this.GradePictureBox.Name = "GradePictureBox";
-            this.GradePictureBox.Size = new System.Drawing.Size(136, 129);
-            this.GradePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.GradePictureBox.TabIndex = 2;
-            this.GradePictureBox.TabStop = false;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(0, 132);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(652, 47);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Opinie o Tobie:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // GradeLabel
+            // OpinionsGrid
             // 
-            this.GradeLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.GradeLabel.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.GradeLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.GradeLabel.Location = new System.Drawing.Point(0, 47);
-            this.GradeLabel.Name = "GradeLabel";
-            this.GradeLabel.Size = new System.Drawing.Size(652, 85);
-            this.GradeLabel.TabIndex = 1;
-            this.GradeLabel.Text = "5";
-            this.GradeLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.OpinionsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.OpinionsGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.OpinionsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.OpinionsGrid.Location = new System.Drawing.Point(12, 182);
+            this.OpinionsGrid.MultiSelect = false;
+            this.OpinionsGrid.Name = "OpinionsGrid";
+            this.OpinionsGrid.RowTemplate.Height = 25;
+            this.OpinionsGrid.Size = new System.Drawing.Size(624, 248);
+            this.OpinionsGrid.TabIndex = 3;
+            // 
+            // ScorePictureBox
+            // 
+            this.ScorePictureBox.Image = global::Hospital.Properties.Resources.EmojiNice;
+            this.ScorePictureBox.Location = new System.Drawing.Point(424, 0);
+            this.ScorePictureBox.Name = "ScorePictureBox";
+            this.ScorePictureBox.Size = new System.Drawing.Size(136, 129);
+            this.ScorePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ScorePictureBox.TabIndex = 2;
+            this.ScorePictureBox.TabStop = false;
+            // 
+            // AverageGradeLabel
+            // 
+            this.AverageGradeLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AverageGradeLabel.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.AverageGradeLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.AverageGradeLabel.Location = new System.Drawing.Point(0, 47);
+            this.AverageGradeLabel.Name = "AverageGradeLabel";
+            this.AverageGradeLabel.Size = new System.Drawing.Size(652, 85);
+            this.AverageGradeLabel.TabIndex = 1;
+            this.AverageGradeLabel.Text = "5";
+            this.AverageGradeLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label9
             // 
@@ -394,26 +417,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "WITAJ";
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 166);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(624, 264);
-            this.dataGridView1.TabIndex = 3;
-            // 
-            // label10
-            // 
-            this.label10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label10.Location = new System.Drawing.Point(0, 132);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(652, 47);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Opinie o Tobie:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // Doktor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -429,13 +432,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.OpinionsPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.GradePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OpinionsGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScorePictureBox)).EndInit();
             this.PatientsPanel.ResumeLayout(false);
             this.PatientsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PatientsGrid)).EndInit();
             this.InformationPanel.ResumeLayout(false);
             this.InformationPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -467,10 +470,10 @@
         private Button button2;
         private Button PrescriptionButton;
         private Panel OpinionsPanel;
-        private PictureBox GradePictureBox;
-        private Label GradeLabel;
+        private PictureBox ScorePictureBox;
+        private Label AverageGradeLabel;
         private Label label9;
         private Label label10;
-        private DataGridView dataGridView1;
+        private DataGridView OpinionsGrid;
     }
 }

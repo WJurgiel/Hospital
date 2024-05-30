@@ -44,8 +44,11 @@ namespace Hospital
 
                         doktorUI = new(dbConnection, doctorID, doctorSpecialization);
 
-                        doktorUI.Text = $"{name} {lastName} {doctorID}";
+                        doktorUI.Text = $"{name} {lastName}";
                         doktorUI.Show();
+                        
+                        usernameTextBox.Text = "";
+                        passwordTextBox.Text = "";
                     }
                     else
                     {

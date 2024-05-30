@@ -40,10 +40,9 @@
             // usernameTextBox
             // 
             this.usernameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.usernameTextBox.Location = new System.Drawing.Point(184, 124);
-            this.usernameTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.usernameTextBox.Location = new System.Drawing.Point(161, 93);
             this.usernameTextBox.Name = "usernameTextBox";
-            this.usernameTextBox.Size = new System.Drawing.Size(137, 27);
+            this.usernameTextBox.Size = new System.Drawing.Size(120, 23);
             this.usernameTextBox.TabIndex = 1;
             // 
             // label1
@@ -52,7 +51,7 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(487, 62);
+            this.label1.Size = new System.Drawing.Size(426, 46);
             this.label1.TabIndex = 2;
             this.label1.Text = "Centralny System Szpitalny";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -60,35 +59,33 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(138, 128);
+            this.label2.Location = new System.Drawing.Point(121, 96);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 20);
+            this.label2.Size = new System.Drawing.Size(34, 15);
             this.label2.TabIndex = 3;
             this.label2.Text = "login";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(138, 185);
+            this.label3.Location = new System.Drawing.Point(121, 139);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 20);
+            this.label3.Size = new System.Drawing.Size(35, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "hasło";
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(184, 181);
-            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.passwordTextBox.Location = new System.Drawing.Point(161, 136);
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(137, 27);
+            this.passwordTextBox.Size = new System.Drawing.Size(120, 23);
             this.passwordTextBox.TabIndex = 5;
             // 
             // LoginButton
             // 
-            this.LoginButton.Location = new System.Drawing.Point(184, 247);
-            this.LoginButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.LoginButton.Location = new System.Drawing.Point(161, 185);
             this.LoginButton.Name = "LoginButton";
-            this.LoginButton.Size = new System.Drawing.Size(137, 53);
+            this.LoginButton.Size = new System.Drawing.Size(120, 40);
             this.LoginButton.TabIndex = 6;
             this.LoginButton.Text = "Zaloguj";
             this.LoginButton.UseVisualStyleBackColor = true;
@@ -99,19 +96,19 @@
             this.WarningText.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.WarningText.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.WarningText.ForeColor = System.Drawing.Color.Red;
-            this.WarningText.Location = new System.Drawing.Point(0, 304);
+            this.WarningText.Location = new System.Drawing.Point(0, 228);
             this.WarningText.Name = "WarningText";
-            this.WarningText.Size = new System.Drawing.Size(487, 85);
+            this.WarningText.Size = new System.Drawing.Size(426, 64);
             this.WarningText.TabIndex = 7;
-            this.WarningText.Text = "Login lub haslo nieprawidlowe";
+            this.WarningText.Text = "-";
             this.WarningText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(487, 389);
+            this.ClientSize = new System.Drawing.Size(426, 292);
             this.Controls.Add(this.WarningText);
             this.Controls.Add(this.LoginButton);
             this.Controls.Add(this.passwordTextBox);
@@ -120,7 +117,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.usernameTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

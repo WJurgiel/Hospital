@@ -7,7 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Hospital.Properties;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
+
 namespace Hospital
 {
     
@@ -19,7 +22,10 @@ namespace Hospital
         private int DoctorSpecializationID { get; set; }
 
         private DataTable patientsTable;
+        private DataTable opinionsTable;
         private Presciption prescriptionForm;
+
+        private double opinionScore;
         public Doktor(string dbCon, int doctorID, int specializationID)
         {
             InitializeComponent();
@@ -36,7 +42,7 @@ namespace Hospital
 
             CreateInformationsPanel();
             createPatientsPanel();
-
+            CreateOpinionsPanel();
         }
         void CreateInformationsPanel()
         {
@@ -77,7 +83,44 @@ namespace Hospital
             PatientsGrid.DataSource = patientsTable;
             mySqlConnection.Close();
         }
-        
+        public void CreateOpinionsPanel()
+        {
+            mySqlConnection.Open();
+            string query = $"SELECT p.Imie, p.Nazwisko, o.Ocena, o.komentarz FROM pacjenci as p JOIN opinie as o ON o.ID_Lekarza = {DoctorID} WHERE o.ID_Pacjenta = p.ID";
+            MySqlDataAdapter dataAdapter = new(query, mySqlConnection);
+
+            if (opinionsTable == null) opinionsTable= new();
+            else opinionsTable.Clear();
+
+            dataAdapter.Fill(opinionsTable);
+            OpinionsGrid.DataSource = opinionsTable;
+            mySqlConnection.Close();
+
+        }
+        private void CalculateAverageScore()
+        {
+            mySqlConnection.Open();
+            string query = $"SELECT AVG(Ocena) AS Average FROM opinie WHERE ID_Lekarza = {DoctorID}";
+            MySqlCommand command = new(query, mySqlConnection);
+            object average = command.ExecuteScalar();
+            if (average != null)
+            {
+                opinionScore = Convert.ToDouble(average);
+                AverageGradeLabel.Text = opinionScore.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Nie można obliczyć średniej");
+                return;
+            }
+            mySqlConnection.Close();
+        }
+        private void UpdateScorePictureBox()
+        {
+            if (opinionScore < 2) ScorePictureBox.Image = Resources.EmojiShocked;
+            else if (opinionScore < 3) ScorePictureBox.Image = Resources.EmojiSad;
+            else ScorePictureBox.Image = Resources.EmojiNice;
+        }
         public void UpdateDiagnose(int PatientID, string newDiagnose)
         {
             mySqlConnection.Open();
@@ -114,7 +157,11 @@ namespace Hospital
 
             OpinionsPanel.Visible = true;
             PatientsPanel.Visible = false;
+            CreateOpinionsPanel();
+            CalculateAverageScore();
+            UpdateScorePictureBox();
         }
+
         private void InformationsPanelButton_Click(object sender, EventArgs e)
         {
             PatientsPanel.Visible = false;
