@@ -86,6 +86,7 @@
             this.Controls.Add(this.YesRadioButton);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "DeletePatient";
             this.Text = "DeletePatient";
             this.ResumeLayout(false);

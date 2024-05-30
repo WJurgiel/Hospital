@@ -16,13 +16,16 @@ namespace Hospital
         private string dbConnection;
         private MySqlConnection mySqlConnection;
         public int DoctorID { get; set; }
+        private int DoctorSpecializationID { get; set; }
+
         private DataTable patientsTable;
-        
-        public Doktor(string dbCon, int doctorID)
+        private Presciption prescriptionForm;
+        public Doktor(string dbCon, int doctorID, int specializationID)
         {
             InitializeComponent();
             //class fields
             DoctorID = doctorID;
+            DoctorSpecializationID = specializationID;
             //database connection;  
             dbConnection = dbCon;
             mySqlConnection = new(dbConnection);
@@ -31,11 +34,11 @@ namespace Hospital
             PatientsPanel.Visible = false;
             patientsTable = null;
 
-            createInformationsPanel();
+            CreateInformationsPanel();
             createPatientsPanel();
 
         }
-        void createInformationsPanel()
+        void CreateInformationsPanel()
         {
             mySqlConnection.Open();
             MySqlCommand mySqlCommand = new("SELECT * from lekarze as l JOIN specjalizacje as s ON l.ID_Specjalizacji = s.ID", mySqlConnection);
@@ -56,7 +59,7 @@ namespace Hospital
         public void createPatientsPanel()
         {
             mySqlConnection.Open();
-            string querry = $"SELECT p.ID, p.Imie, p.Nazwisko, p.Diagnoza, p.Data_Przyjecia, l.Nazwa FROM pacjenci as p JOIN recepty as r ON p.ID = r.ID_Pacjenta JOIN leki as l ON r.ID_leku = l.ID AND p.ID_Lekarza = {DoctorID}";
+            string querry = $"SELECT p.ID, p.Imie, p.Nazwisko, p.Diagnoza, p.Data_Przyjecia FROM pacjenci as p WHERE p.ID_Lekarza = {DoctorID}";
             MySqlDataAdapter dataAdapter = new(querry, mySqlConnection);
            
             
@@ -74,7 +77,8 @@ namespace Hospital
             PatientsGrid.DataSource = patientsTable;
             mySqlConnection.Close();
         }
-        public void UpdateDiagnose(int patientID, string newDiagnose)
+        
+        public void UpdateDiagnose(int PatientID, string newDiagnose)
         {
             mySqlConnection.Open();
             try
@@ -82,12 +86,12 @@ namespace Hospital
                 string querry = $"UPDATE pacjenci SET Diagnoza = @Diagnoza WHERE ID = @ID";
                 MySqlCommand command = new(querry, mySqlConnection);
                 command.Parameters.AddWithValue("@Diagnoza", newDiagnose);
-                command.Parameters.AddWithValue("@ID", patientID);
+                command.Parameters.AddWithValue("@ID", PatientID);
                 command.ExecuteNonQuery();
             }
             catch(Exception ex)
             {
-                MessageBox.Show($"Coś się zepsuło w procesie, patientID = {patientID}, newDiagnose: {newDiagnose}");
+                MessageBox.Show($"Coś się zepsuło w procesie, PatientID = {PatientID}, newDiagnose: {newDiagnose}");
                 MessageBox.Show(ex.Message);
             }
             mySqlConnection.Close();
@@ -103,8 +107,14 @@ namespace Hospital
         private void PatientsButton_Click(object sender, EventArgs e)
         {
             PatientsPanel.Visible = true;
+            OpinionsPanel.Visible = false;
         }
+        private void ShowOpinionsButton_Click(object sender, EventArgs e)
+        {
 
+            OpinionsPanel.Visible = true;
+            PatientsPanel.Visible = false;
+        }
         private void InformationsPanelButton_Click(object sender, EventArgs e)
         {
             PatientsPanel.Visible = false;
@@ -117,9 +127,7 @@ namespace Hospital
         }
         private void DiagnoseButton_Click(object sender, EventArgs e)
         {
-            /*
-             * fix this
-             */
+          
             if(PatientsGrid.SelectedRows.Count == 1)
             {
                 int selectedRowIndex = PatientsGrid.SelectedRows[0].Index;
@@ -148,10 +156,16 @@ namespace Hospital
         {
             if (PatientsGrid.SelectedRows.Count == 1)
             {
-                Presciption prescriptionForm = new();
-                if(prescriptionForm.ShowDialog() == DialogResult.OK)
+                int selectedRowIndex = PatientsGrid.SelectedRows[0].Index;
+                int patientId = Convert.ToInt32(PatientsGrid.Rows[selectedRowIndex].Cells["ID"].Value);
+                string name = (PatientsGrid.Rows[selectedRowIndex].Cells["Imie"]).Value.ToString();
+                string surname = PatientsGrid.Rows[selectedRowIndex].Cells["Nazwisko"].Value.ToString();
+
+                prescriptionForm = new(dbConnection, patientId, DoctorID, DoctorSpecializationID, name, surname);
+                
+                if (prescriptionForm.ShowDialog() == DialogResult.OK)
                 {
-                    //string newDiagnose = prescriptionForm.
+                    
                 }
 
             }
@@ -175,5 +189,7 @@ namespace Hospital
             }
 
         }
+
+       
     }
 }
