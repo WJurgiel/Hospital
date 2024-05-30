@@ -29,10 +29,14 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.button1 = new System.Windows.Forms.Button();
+            this.ShowOpinionsButton = new System.Windows.Forms.Button();
             this.LogoutButton = new System.Windows.Forms.Button();
             this.PatientsButton = new System.Windows.Forms.Button();
             this.InformationsPanelButton = new System.Windows.Forms.Button();
+            this.OpinionsPanel = new System.Windows.Forms.Panel();
+            this.GradePictureBox = new System.Windows.Forms.PictureBox();
+            this.GradeLabel = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.PatientsPanel = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -52,13 +56,18 @@
             this.IdLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.OpinionsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GradePictureBox)).BeginInit();
             this.PatientsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PatientsGrid)).BeginInit();
             this.InformationPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -69,30 +78,32 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.button1);
+            this.splitContainer1.Panel1.Controls.Add(this.ShowOpinionsButton);
             this.splitContainer1.Panel1.Controls.Add(this.LogoutButton);
             this.splitContainer1.Panel1.Controls.Add(this.PatientsButton);
             this.splitContainer1.Panel1.Controls.Add(this.InformationsPanelButton);
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.OpinionsPanel);
             this.splitContainer1.Panel2.Controls.Add(this.PatientsPanel);
             this.splitContainer1.Panel2.Controls.Add(this.InformationPanel);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Size = new System.Drawing.Size(800, 450);
-            this.splitContainer1.SplitterDistance = 145;
+            this.splitContainer1.SplitterDistance = 144;
             this.splitContainer1.TabIndex = 0;
             // 
-            // button1
+            // ShowOpinionsButton
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(12, 114);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(124, 45);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Opinie";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ShowOpinionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ShowOpinionsButton.Location = new System.Drawing.Point(12, 114);
+            this.ShowOpinionsButton.Name = "ShowOpinionsButton";
+            this.ShowOpinionsButton.Size = new System.Drawing.Size(124, 45);
+            this.ShowOpinionsButton.TabIndex = 3;
+            this.ShowOpinionsButton.Text = "Opinie";
+            this.ShowOpinionsButton.UseVisualStyleBackColor = true;
+            this.ShowOpinionsButton.Click += new System.EventHandler(this.ShowOpinionsButton_Click);
             // 
             // LogoutButton
             // 
@@ -127,6 +138,53 @@
             this.InformationsPanelButton.UseVisualStyleBackColor = true;
             this.InformationsPanelButton.Click += new System.EventHandler(this.InformationsPanelButton_Click);
             // 
+            // OpinionsPanel
+            // 
+            this.OpinionsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.OpinionsPanel.Controls.Add(this.label10);
+            this.OpinionsPanel.Controls.Add(this.dataGridView1);
+            this.OpinionsPanel.Controls.Add(this.GradePictureBox);
+            this.OpinionsPanel.Controls.Add(this.GradeLabel);
+            this.OpinionsPanel.Controls.Add(this.label9);
+            this.OpinionsPanel.Location = new System.Drawing.Point(3, 3);
+            this.OpinionsPanel.Name = "OpinionsPanel";
+            this.OpinionsPanel.Size = new System.Drawing.Size(652, 450);
+            this.OpinionsPanel.TabIndex = 5;
+            this.OpinionsPanel.Visible = false;
+            // 
+            // GradePictureBox
+            // 
+            this.GradePictureBox.Image = global::Hospital.Properties.Resources.EmojiNice;
+            this.GradePictureBox.Location = new System.Drawing.Point(424, 0);
+            this.GradePictureBox.Name = "GradePictureBox";
+            this.GradePictureBox.Size = new System.Drawing.Size(136, 129);
+            this.GradePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.GradePictureBox.TabIndex = 2;
+            this.GradePictureBox.TabStop = false;
+            // 
+            // GradeLabel
+            // 
+            this.GradeLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.GradeLabel.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.GradeLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.GradeLabel.Location = new System.Drawing.Point(0, 47);
+            this.GradeLabel.Name = "GradeLabel";
+            this.GradeLabel.Size = new System.Drawing.Size(652, 85);
+            this.GradeLabel.TabIndex = 1;
+            this.GradeLabel.Text = "5";
+            this.GradeLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label9
+            // 
+            this.label9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.Location = new System.Drawing.Point(0, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(652, 47);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Twoja ocena:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // PatientsPanel
             // 
             this.PatientsPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
@@ -135,7 +193,7 @@
             this.PatientsPanel.Controls.Add(this.PrescriptionButton);
             this.PatientsPanel.Controls.Add(this.DiagnoseButton);
             this.PatientsPanel.Controls.Add(this.PatientsGrid);
-            this.PatientsPanel.Location = new System.Drawing.Point(0, 0);
+            this.PatientsPanel.Location = new System.Drawing.Point(3, 3);
             this.PatientsPanel.Name = "PatientsPanel";
             this.PatientsPanel.Size = new System.Drawing.Size(655, 450);
             this.PatientsPanel.TabIndex = 0;
@@ -189,9 +247,11 @@
             // 
             // PatientsGrid
             // 
+            this.PatientsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.PatientsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PatientsGrid.Location = new System.Drawing.Point(22, 63);
             this.PatientsGrid.Name = "PatientsGrid";
+            this.PatientsGrid.RowHeadersWidth = 51;
             this.PatientsGrid.RowTemplate.Height = 25;
             this.PatientsGrid.Size = new System.Drawing.Size(614, 322);
             this.PatientsGrid.TabIndex = 0;
@@ -268,7 +328,7 @@
             // 
             this.SurnameLabel.AutoSize = true;
             this.SurnameLabel.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SurnameLabel.Location = new System.Drawing.Point(213, 108);
+            this.SurnameLabel.Location = new System.Drawing.Point(219, 108);
             this.SurnameLabel.Name = "SurnameLabel";
             this.SurnameLabel.Size = new System.Drawing.Size(42, 50);
             this.SurnameLabel.TabIndex = 7;
@@ -278,7 +338,7 @@
             // 
             this.SpecializationLabel.AutoSize = true;
             this.SpecializationLabel.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SpecializationLabel.Location = new System.Drawing.Point(268, 158);
+            this.SpecializationLabel.Location = new System.Drawing.Point(277, 158);
             this.SpecializationLabel.Name = "SpecializationLabel";
             this.SpecializationLabel.Size = new System.Drawing.Size(43, 50);
             this.SpecializationLabel.TabIndex = 8;
@@ -308,7 +368,7 @@
             // 
             this.IdLabel.AutoSize = true;
             this.IdLabel.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.IdLabel.Location = new System.Drawing.Point(304, 14);
+            this.IdLabel.Location = new System.Drawing.Point(335, 14);
             this.IdLabel.Name = "IdLabel";
             this.IdLabel.Size = new System.Drawing.Size(57, 50);
             this.IdLabel.TabIndex = 11;
@@ -334,12 +394,33 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "WITAJ";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 166);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 25;
+            this.dataGridView1.Size = new System.Drawing.Size(624, 264);
+            this.dataGridView1.TabIndex = 3;
+            // 
+            // label10
+            // 
+            this.label10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.Location = new System.Drawing.Point(0, 132);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(652, 47);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Opinie o Tobie:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // Doktor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.splitContainer1);
+            this.MaximizeBox = false;
             this.Name = "Doktor";
             this.Text = "Doktor";
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -347,11 +428,14 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.OpinionsPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GradePictureBox)).EndInit();
             this.PatientsPanel.ResumeLayout(false);
             this.PatientsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PatientsGrid)).EndInit();
             this.InformationPanel.ResumeLayout(false);
             this.InformationPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -377,10 +461,16 @@
         private Label IdLabel;
         private Label label8;
         private Panel InformationPanel;
-        private Button button1;
+        private Button ShowOpinionsButton;
         private Button DiagnoseButton;
         private DataGridView PatientsGrid;
         private Button button2;
         private Button PrescriptionButton;
+        private Panel OpinionsPanel;
+        private PictureBox GradePictureBox;
+        private Label GradeLabel;
+        private Label label9;
+        private Label label10;
+        private DataGridView dataGridView1;
     }
 }

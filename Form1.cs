@@ -15,13 +15,12 @@ namespace Hospital
             mySqlConnection = new(dbConnection);
             WarningText.Visible = false;
         }
-
-        private void LoginButton_Click(object sender, EventArgs e)
+        private void ProcessLogin()
         {
             string username = usernameTextBox.Text.ToString();
             string password = passwordTextBox.Text.ToString();
 
-            if(String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
+            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
             {
                 WarningText.Text = "Pola nie mog¹ byæ puste!";
                 WarningText.Visible = true;
@@ -33,40 +32,51 @@ namespace Hospital
                 MySqlDataReader reader = mySqlCommand.ExecuteReader();
                 while (reader.Read())
                 {
-                    if (username.Equals(reader.GetString("Login")) && password.Equals(reader.GetString("Haslo"))){
+                    if (username.Equals(reader.GetString("Login")) && password.Equals(reader.GetString("Haslo")))
+                    {
                         WarningText.Visible = false;
 
                         this.Hide();
                         int doctorID = reader.GetInt32("ID");
+                        int doctorSpecialization = reader.GetInt32("ID_Specjalizacji");
                         string name = reader.GetString("Imie");
                         string lastName = reader.GetString("Nazwisko");
 
-                        doktorUI = new(dbConnection, doctorID);
+                        doktorUI = new(dbConnection, doctorID, doctorSpecialization);
 
                         doktorUI.Text = $"{name} {lastName} {doctorID}";
                         doktorUI.Show();
                     }
                     else
-                    {                        
+                    {
                         WarningText.Text = "Username or password incorrect!";
                         WarningText.Visible = true;
                     }
                 }
                 mySqlConnection.Close();
             }
-
-
-
-
-
-            //doktorUI.Show();
         }
 
+
+        private void LoginButton_Click(object sender, EventArgs e)
+        {
+            ProcessLogin();
+        }
+        //do usuniecia 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
 
         }
 
-       
+        //do usuniecia
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                ProcessLogin();
+                this.Text = "Enter";
+            }
+
+        }
     }
 }

@@ -71,6 +71,7 @@
             this.Controls.Add(this.AddDiagnoseButton);
             this.Controls.Add(this.DiagnoseTextBox);
             this.Controls.Add(this.PatientNameLabel);
+            this.MaximizeBox = false;
             this.Name = "DiagnosePatient";
             this.Text = "DiagnosePatient";
             this.ResumeLayout(false);

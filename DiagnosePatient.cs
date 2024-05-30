@@ -12,7 +12,7 @@ namespace Hospital
 {
     public partial class DiagnosePatient : Form
     {
-        private int patientID;
+        private int PatientID;
         public string diagnose { get; set; }
         private string name, surname;
         Doktor doctor = null;
@@ -21,7 +21,7 @@ namespace Hospital
             InitializeComponent();
 
             doctor = doc;
-            patientID = id;
+            PatientID = id;
             name = n;
             surname = s;
             PatientNameLabel.Text = $"{name} {surname}";
@@ -31,7 +31,7 @@ namespace Hospital
         {
             diagnose = DiagnoseTextBox.Text;
 
-            doctor.UpdateDiagnose(patientID, diagnose);
+            doctor.UpdateDiagnose(PatientID, diagnose);
             doctor.createPatientsPanel();
             this.Close();
         }
