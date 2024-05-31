@@ -86,7 +86,10 @@ namespace Hospital
         public void CreateOpinionsPanel()
         {
             mySqlConnection.Open();
-            string query = $"SELECT p.Imie, p.Nazwisko, o.Ocena, o.komentarz FROM pacjenci as p JOIN opinie as o ON o.ID_Lekarza = {DoctorID} WHERE o.ID_Pacjenta = p.ID";
+            string query = $"SELECT " +
+                $"CASE WHEN o.Anonimowe = 1 THEN 'Anonimowy' ELSE p.Imie END AS Imie, " +
+                $"CASE WHEN o.Anonimowe = 1 THEN ' ' ELSE p.Nazwisko END AS Nazwisko," +
+                $" o.Ocena, o.komentarz FROM pacjenci as p JOIN opinie as o ON o.ID_Lekarza = {DoctorID} WHERE o.ID_Pacjenta = p.ID";
             MySqlDataAdapter dataAdapter = new(query, mySqlConnection);
 
             if (opinionsTable == null) opinionsTable= new();
@@ -118,7 +121,7 @@ namespace Hospital
         private void UpdateScorePictureBox()
         {
             if (opinionScore < 2) ScorePictureBox.Image = Resources.EmojiShocked;
-            else if (opinionScore < 3) ScorePictureBox.Image = Resources.EmojiSad;
+            else if (opinionScore < 4) ScorePictureBox.Image = Resources.EmojiSad;
             else ScorePictureBox.Image = Resources.EmojiNice;
         }
         public void UpdateDiagnose(int PatientID, string newDiagnose)
@@ -165,6 +168,7 @@ namespace Hospital
         private void InformationsPanelButton_Click(object sender, EventArgs e)
         {
             PatientsPanel.Visible = false;
+            OpinionsPanel.Visible = false;
         }
         public void OnDiagnoseUpdated(int patientId, string newDiagnose)
         {
