@@ -43,6 +43,8 @@ namespace Hospital
             CreateInformationsPanel();
             createPatientsPanel();
             CreateOpinionsPanel();
+
+            
         }
         void CreateInformationsPanel()
         {
@@ -87,9 +89,9 @@ namespace Hospital
         {
             mySqlConnection.Open();
             string query = $"SELECT " +
-                $"CASE WHEN o.Anonimowe = 1 THEN 'Anonimowy' ELSE p.Imie END AS Imie, " +
-                $"CASE WHEN o.Anonimowe = 1 THEN ' ' ELSE p.Nazwisko END AS Nazwisko," +
-                $" o.Ocena, o.komentarz FROM pacjenci as p JOIN opinie as o ON o.ID_Lekarza = {DoctorID} WHERE o.ID_Pacjenta = p.ID";
+                $"CASE WHEN o.Anonimowe = 1 THEN 'Anonimowy' ELSE o.Imie END AS Imie, " +
+                $"CASE WHEN o.Anonimowe = 1 THEN ' ' ELSE o.Nazwisko END AS Nazwisko," +
+                $" o.Ocena, o.komentarz FROM opinie as o WHERE o.ID_Lekarza = {DoctorID}";
             MySqlDataAdapter dataAdapter = new(query, mySqlConnection);
 
             if (opinionsTable == null) opinionsTable= new();
@@ -106,22 +108,22 @@ namespace Hospital
             string query = $"SELECT AVG(Ocena) AS Average FROM opinie WHERE ID_Lekarza = {DoctorID}";
             MySqlCommand command = new(query, mySqlConnection);
             object average = command.ExecuteScalar();
-            if (average != null)
+            if (!Convert.IsDBNull(average))
             {
                 opinionScore = Convert.ToDouble(average);
-                AverageGradeLabel.Text = opinionScore.ToString();
             }
             else
             {
-                MessageBox.Show("Nie można obliczyć średniej");
-                return;
+                opinionScore = 0.0;
+                        
             }
+            AverageGradeLabel.Text = opinionScore.ToString();
             mySqlConnection.Close();
         }
         private void UpdateScorePictureBox()
         {
-            if (opinionScore < 2) ScorePictureBox.Image = Resources.EmojiShocked;
-            else if (opinionScore < 4) ScorePictureBox.Image = Resources.EmojiSad;
+            if (opinionScore <= 2) ScorePictureBox.Image = Resources.EmojiShocked;
+            else if (opinionScore <= 4) ScorePictureBox.Image = Resources.EmojiSad;
             else ScorePictureBox.Image = Resources.EmojiNice;
         }
         public void UpdateDiagnose(int PatientID, string newDiagnose)
@@ -170,12 +172,7 @@ namespace Hospital
             PatientsPanel.Visible = false;
             OpinionsPanel.Visible = false;
         }
-        public void OnDiagnoseUpdated(int patientId, string newDiagnose)
-        {
-            UpdateDiagnose(patientId, newDiagnose);
-            createPatientsPanel();
-            DiagnoseButton.Text = "działa:P";
-        }
+        
         private void DiagnoseButton_Click(object sender, EventArgs e)
         {
           
@@ -231,7 +228,10 @@ namespace Hospital
         {
             if (PatientsGrid.SelectedRows.Count == 1)
             {
-                DeletePatient deleteForm = new();
+                int selectedRowIndex = PatientsGrid.SelectedRows[0].Index;
+                int patientId = Convert.ToInt32(PatientsGrid.Rows[selectedRowIndex].Cells["ID"].Value);
+                DeletePatient deleteForm = new(dbConnection, patientId, this);
+                
                 deleteForm.ShowDialog();
             }
             else

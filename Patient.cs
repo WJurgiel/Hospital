@@ -80,16 +80,12 @@ namespace Hospital
         private void CheckIfHasAlreadyVoted()
         {
             mySqlConnection.Open();
-            string query = $"SELECT SUM(ID_Pacjenta) AS voting FROM opinie WHERE ID_Pacjenta = {PatientID}";
+            string query = $"SELECT CzyGlosowal FROM pacjenci WHERE ID = {PatientID}";
             MySqlCommand command = new(query, mySqlConnection);
             object voting = command.ExecuteScalar();
-            int votingTimes;
-            if (voting != null && !Convert.IsDBNull(voting)) votingTimes = Convert.ToInt32(voting);
-            else
-            {
-                votingTimes = 0;
-            }
-            hasAlreadyRated = votingTimes > 0;
+            
+            if (voting != null && !Convert.IsDBNull(voting)) hasAlreadyRated = Convert.ToBoolean(voting);
+                        
             mySqlConnection.Close();
         }
 
@@ -248,11 +244,19 @@ namespace Hospital
             ratingComment = CommentTextBox.Text;
 
             mySqlConnection.Open();
-            string query = $"INSERT INTO opinie (ID_Lekarza, Ocena, ID_Pacjenta, komentarz, Anonimowe)" +
-                $" VALUES({AssignedDoctorID},{ratingNote}, {PatientID}, @Komentarz, {anonymousInt})";
+            string query = $"INSERT INTO opinie (ID_Lekarza, Ocena, komentarz, Anonimowe, Imie, Nazwisko)" +
+                $" VALUES({AssignedDoctorID},{ratingNote}, @Komentarz, {anonymousInt}, @Imie, @Nazwisko)";
             MySqlCommand command = new(query, mySqlConnection);
             command.Parameters.AddWithValue("@Komentarz", ratingComment);
+            command.Parameters.AddWithValue("@Imie", name);
+            command.Parameters.AddWithValue("@Nazwisko", surname);
             command.ExecuteNonQuery();
+
+
+            string hasVotedQuery = $"UPDATE pacjenci SET CzyGlosowal = 1 WHERE ID = {PatientID}";
+            command = new(hasVotedQuery, mySqlConnection);
+            command.ExecuteNonQuery();
+
             mySqlConnection.Close();
 
             MessageBox.Show("Dziękujemy za twoją opinię! :)");
