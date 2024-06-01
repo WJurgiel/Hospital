@@ -67,7 +67,7 @@ namespace Hospital
         {
             mySqlConnection.Open();
             //counter|drug name|dueDate|
-            string querry = $"SELECT recepty.ID as nr_recepty, leki.nazwa, recepty.stosowanie FROM recepty JOIN leki ON recepty.ID_Leku = leki.ID WHERE recepty.ID_Pacjenta = {PatientID}";
+            string querry = $"SELECT recepty.ID as ID_Recepty, leki.nazwa, recepty.stosowanie, recepty.NR_recepty FROM recepty JOIN leki ON recepty.ID_Leku = leki.ID WHERE recepty.ID_Pacjenta = {PatientID}";
             MySqlDataAdapter dataAdapter = new(querry, mySqlConnection);
             if (prescribedTable == null) prescribedTable = new();
             else prescribedTable.Clear();

@@ -54,6 +54,7 @@
             this.DeleteButton.TabIndex = 1;
             this.DeleteButton.Text = "wypisz";
             this.DeleteButton.UseVisualStyleBackColor = false;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // YesRadioButton
             // 
@@ -62,13 +63,13 @@
             this.YesRadioButton.Name = "YesRadioButton";
             this.YesRadioButton.Size = new System.Drawing.Size(42, 19);
             this.YesRadioButton.TabIndex = 2;
-            this.YesRadioButton.TabStop = true;
             this.YesRadioButton.Text = "Tak";
             this.YesRadioButton.UseVisualStyleBackColor = true;
             // 
             // NoRadioButton
             // 
             this.NoRadioButton.AutoSize = true;
+            this.NoRadioButton.Checked = true;
             this.NoRadioButton.Location = new System.Drawing.Point(72, 41);
             this.NoRadioButton.Name = "NoRadioButton";
             this.NoRadioButton.Size = new System.Drawing.Size(43, 19);

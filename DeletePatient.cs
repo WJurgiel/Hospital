@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,33 @@ namespace Hospital
 {
     public partial class DeletePatient : Form
     {
-        public DeletePatient()
+        string dbConnection;
+        MySqlConnection mySqlConnection;
+        int PatientID;
+
+       private Doktor Doctor;
+        public DeletePatient(string dbCon, int patientID, Doktor doc)
         {
             InitializeComponent();
+            dbConnection = dbCon;
+            mySqlConnection = new(dbConnection);
+
+            PatientID = patientID;
+            Doctor = doc;
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            mySqlConnection.Open();
+            if (NoRadioButton.Checked == true) return;
+            string query = $"DELETE FROM pacjenci WHERE ID = {PatientID}";
+            MySqlCommand command = new(query, mySqlConnection);
+            command.ExecuteNonQuery();
+
+            Doctor.createPatientsPanel();
+            mySqlConnection.Close();
+
+            this.Close();
         }
     }
 }
