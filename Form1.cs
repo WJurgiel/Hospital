@@ -9,6 +9,7 @@ namespace Hospital
         MySqlConnection mySqlConnection;
         Doktor doktorUI;
         Patient patientUI;
+        Admin adminUI;
         public Form1()
         {
             InitializeComponent();
@@ -29,6 +30,7 @@ namespace Hospital
                 return;
             }
             
+           
             
             mySqlConnection.Open();
 
@@ -86,7 +88,16 @@ namespace Hospital
                 }
                 reader.Close();
             }
-
+            // LOGIN AS ADMIN
+            if (username == "admin" && password == "admin" && !loginSuccessful)
+            {
+                loginSuccessful = true;
+                this.Hide();
+                adminUI = new(dbConnection);
+                adminUI.Show();
+                usernameTextBox.Text = "";
+                passwordTextBox.Text = "";
+            }
             //LOGIN FAILED
             if (!loginSuccessful)
             {

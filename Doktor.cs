@@ -62,6 +62,17 @@ namespace Hospital
 
                 }
             }
+            reader.Close();
+            string countPatientsQuery = $"SELECT COUNT(ID) FROM pacjenci WHERE ID_Lekarza = {DoctorID}";
+            MySqlCommand countCommand = new(countPatientsQuery, mySqlConnection);
+            object countObject = countCommand.ExecuteScalar();
+            int count = 0;
+            if (!Convert.IsDBNull(countObject))
+            {
+                count = Convert.ToInt32(countObject);
+            }
+            
+            PatientCountLabel.Text = count.ToString();
             mySqlConnection.Close();
         }
         public void createPatientsPanel()
