@@ -396,3 +396,12 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Environment files with sensitive data
+.env
+.env.local
+.env.*.local
+
+# Docker volumes
+/data/mysql/
+
